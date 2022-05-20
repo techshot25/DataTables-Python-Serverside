@@ -107,12 +107,3 @@ class DataTable:
             "recordsFiltered": len(columns[0]) if len(columns) > 0 else 0
         }
 
-
-if __name__ == "__main__":
-    import json
-    d = DataTable({"a": [1,2,3], "b": [4,5,6]})
-    with open("/home/alish/workspace/gittests/website/datatables/backend/sample.json", 'r') as f:
-        config = json.load(f)
-    print(d(config))
-
-
