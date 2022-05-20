@@ -27,7 +27,7 @@ class Column:
         return len(self.data)
 
     def __getitem__(self, key):
-        return list(self.data)[key]
+        return self.data[key].tolist()
 
     def __iter__(self):
         return iter(self.data)

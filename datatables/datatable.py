@@ -1,3 +1,4 @@
+import re
 from datatables import Column
 
 class DataTable:
@@ -45,8 +46,9 @@ class DataTable:
         if isinstance(data[0], Column):
             view = {col.name: col[start:start+length] for col in data}
             return self.transpose(view)
-        elif isinstance(data[0], dict):
-            return data
+        if isinstance(data[0], dict):
+            return data[start:start+length]
+        raise ValueError("Invalid data type")
 
     def __call__(self, config: dict):
         draw = config["draw"]
@@ -72,18 +74,5 @@ class DataTable:
             "data": self.render(columns, start, length),
             "draw": draw,
             "recordsTotal": len(self._list),
-            "recordsFiltered": len(columns[0]) if len(columns) > 0 else 0
+            "recordsFiltered": len(columns)
         }
-<<<<<<<< HEAD:datatables/datatable.py
-========
-
-
-if __name__ == "__main__":
-    import json
-    d = DataTable({"a": [1,2,3], "b": [4,5,6]})
-    with open("/home/alish/workspace/gittests/website/datatables/backend/sample.json", 'r') as f:
-        config = json.load(f)
-    print(d(config))
-
-
->>>>>>>> parent of 28ea4e7 (memes):src/DataTable.py
